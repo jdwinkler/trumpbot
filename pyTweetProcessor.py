@@ -138,5 +138,5 @@ class TweetProcessor:
 
 if __name__ == '__main__':
 
-    tw_process = TweetProcessor()
+    tw_process = TweetProcessor(debug=False)
     tw_process.start()
