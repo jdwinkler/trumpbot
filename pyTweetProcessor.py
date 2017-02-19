@@ -1,16 +1,19 @@
 from multiprocessing import Queue
 from pyTwitterListener import TweetListener
 from pyTextAnalyzer import TweetClassifier
+import twitter
 import os
 import time
 
 class TweetProcessor:
 
-    def __init__(self):
+    def __init__(self, debug=True):
 
+        self.api = self.generate_api_object()
         self.tweet_queue = Queue()
-        self.listener = TweetListener(self.tweet_queue)
+        self.listener = TweetListener(self.api, self.tweet_queue)
         self.classifier = TweetClassifier()
+        self.debug_status = debug
 
         self.time_window = 600 #seconds
 
@@ -19,6 +22,32 @@ class TweetProcessor:
         self.situation_alert  = 7
         self.situation_redalert = 9
         self.situation_pinnacle_nucflash = 15
+
+    def generate_api_object(self):
+
+        (consumer_key, consumer_secret, access_key, access_secret) = self.get_credentials()
+
+        api = twitter.Api(consumer_key=consumer_key,
+                          consumer_secret=consumer_secret,
+                          access_token_key=access_key,
+                          access_token_secret=access_secret)
+
+        return api
+
+    def get_credentials(self):
+
+        credential_file = os.path.join(os.path.split(__file__)[0],
+                                       'secret',
+                                       'api.key')
+
+        with open (credential_file,'rU') as f:
+
+            consumer_key = f.readline().strip()
+            consumer_secret = f.readline().strip()
+            access_key = f.readline().strip()
+            access_secret = f.readline().strip()
+
+        return (consumer_key, consumer_secret, access_key, access_secret)
 
     def start(self):
 
@@ -61,18 +90,25 @@ class TweetProcessor:
 
     def react(self, nc):
 
+        text = None
+
         if(nc <= self.situation_normal):
-            print 'Trump status: nominal, detected few or no upset tweets in past window'
+            text = 'Trump status: nominal, detected few or no upset tweets in past window'
         elif(nc > self.situation_normal and nc <= self.situation_raised ):
-            print 'Trump status: irritated, detected stream of %i annoyed tweets' % nc
+            text = 'Trump status: irritated, detected stream of %i annoyed tweets' % nc
         elif(nc > self.situation_raised and nc <= self.situation_alert):
-            print 'Trump status: anger rising, detected stream of %i angry tweets' % nc
+            text = 'Trump status: anger rising, detected stream of %i angry tweets' % nc
         elif(nc > self.situation_alert and nc <= self.situation_redalert):
-            print 'Trump status: rage\'s cup runneth over, detected stream of %i enraged tweets' % nc
+            text = 'Trump status: rage\'s cup runneth over, detected stream of %i enraged tweets' % nc
         elif(nc > self.situation_redalert and nc <= self.situation_pinnacle_nucflash):
-            print 'Trump status: crisis imminent or occurring, detected stream of %i furious tweets' % nc
+            text = 'Trump status: crisis imminent or occurring, detected stream of %i furious tweets' % nc
         elif(nc > self.situation_pinnacle_nucflash):
-            print 'Trump status: PINNACLE NUCFLASH; run for the hills, detected stream of %i apoplectic tweets' % nc
+            text = 'Trump status: PINNACLE NUCFLASH; run for the hills, detected stream of %i apoplectic tweets' % nc
+
+        if(self.debug_status):
+            print text
+        else:
+            self.api.PostUpdate(text)
 
     def insert_tweet_into_db(self, timestamp, text, sentiment):
 
