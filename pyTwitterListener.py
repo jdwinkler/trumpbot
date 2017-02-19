@@ -1,4 +1,3 @@
-import os
 import multiprocessing
 
 class TweetListener (multiprocessing.Process):
@@ -20,9 +19,9 @@ class TweetListener (multiprocessing.Process):
 
     def realDonaldJTrumpDetails(self):
 
-        #user_id = '25073877' #trump user id
+        user_id = '25073877' #trump user id
         #user_id = '759251' #cnn user id
-        user_id = '575930104' #metaphor a minute
+        #user_id = '575930104' #metaphor a minute
 
         return user_id
 
