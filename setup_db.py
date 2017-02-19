@@ -4,7 +4,16 @@ import os
 
 def get_db_credentials():
 
-    return ('trump', 'james', 'winkler')
+        self_location = os.path.split(__file__)[0]
+
+        file_path = os.path.join(self_location,'secret','db.key')
+
+        with open(file_path,'rU') as f:
+
+            username = f.readline().strip()
+            password = f.readline().strip()
+
+        return ('trump',username, password)
 
 def reinitialize_db():
 

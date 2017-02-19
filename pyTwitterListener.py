@@ -1,7 +1,6 @@
 import twitter
 import os
 import multiprocessing
-import time
 
 class TweetListener (multiprocessing.Process):
 

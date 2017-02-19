@@ -1,6 +1,4 @@
 from multiprocessing import Queue
-import psycopg2
-import psycopg2.extras
 from pyTwitterListener import TweetListener
 from pyTextAnalyzer import TweetClassifier
 import os
@@ -14,38 +12,13 @@ class TweetProcessor:
         self.listener = TweetListener(self.tweet_queue)
         self.classifier = TweetClassifier()
 
-        username, password  = self.get_db_credentials()
-
-        self.connection = psycopg2.connect(database='trump',
-                                      user=username,
-                                      password=password)
-
-        self.cursor = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+        self.time_window = 600 #seconds
 
         self.situation_normal = 2
         self.situation_raised = 5
         self.situation_alert  = 7
         self.situation_redalert = 9
         self.situation_pinnacle_nucflash = 15
-
-    def __del__(self):
-
-        self.cursor.close()
-        self.connection.commit()
-        self.connection.close()
-
-    def get_db_credentials(self):
-
-        self_location = os.path.split(__file__)[0]
-
-        file_path = os.path.join(self_location,'secret','db.key')
-
-        with open(file_path,'rU') as f:
-
-            username = f.readline().strip()
-            password = f.readline().strip()
-
-        return (username, password)
 
     def start(self):
 
@@ -56,9 +29,8 @@ class TweetProcessor:
         self.listener.start()
 
         contiguous_negative_counter = 0
-        previous_sentiment = 'pos'
         time_recorded = time.time()
-        time_to_reset = 1800 #seconds to reset negative counter
+        time_to_reset = self.time_window
 
         while(True):
 
@@ -81,10 +53,11 @@ class TweetProcessor:
 
             self.insert_tweet_into_db(timestamp, text, predicted_sentiment)
 
-            if(predicted_sentiment == 'neg' and previous_sentiment == 'neg'):
+            if(predicted_sentiment == 'neg'):
                 contiguous_negative_counter+=1
-            else:
-                contiguous_negative_counter =0
+
+            print 'Negativity state: %i' % contiguous_negative_counter
+            print 'Last predicted states: %s' % predicted_sentiment
 
     def react(self, nc):
 
@@ -103,18 +76,11 @@ class TweetProcessor:
 
     def insert_tweet_into_db(self, timestamp, text, sentiment):
 
-        self.cursor.execute('select to_timestamp(%s, %s) as creation_time', (timestamp, 'DY Mon DD HH24:MI:SS +0000 YYYY'))
-
-        converted_postgres_timestamp = self.cursor.fetchone()['creation_time']
-
-        print converted_postgres_timestamp, text, sentiment
-
-        sql_query = 'insert into tweets (created, tweet, sentiment) VALUES (%s, %s, %s)'
-
         try:
 
-            self.cursor.execute(sql_query, (converted_postgres_timestamp, text, sentiment))
-            self.connection.commit()
+            with open('TrumpDB.file','w') as f:
+                f.write('\t'.join([timestamp, text, sentiment]) + '\n')
+
             success = True
 
         except Exception, err:
