@@ -9,7 +9,6 @@ class TweetListener (multiprocessing.Process):
 
         super(TweetListener,self).__init__()
         self.api = self.generate_api_object()
-        self.time_delay = 1 #minutes between checks
         self.queue = output_queue
         self.last_tweet_id = None
         self.target = self.realDonaldJTrumpDetails()
@@ -49,8 +48,9 @@ class TweetListener (multiprocessing.Process):
 
     def realDonaldJTrumpDetails(self):
 
-        #user_id = '25073877'
-        user_id = '759251'
+        #user_id = '25073877' #trump user id
+        #user_id = '759251' #cnn user id
+        user_id = '575930104' #metaphor a minute
 
         return user_id
 

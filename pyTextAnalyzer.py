@@ -83,16 +83,6 @@ class TweetClassifier:
 
         return output_dict
 
-    def pos_tagger(self, tweet_text):
-
-        filtered_tokens = self.clean_up_tweet(tweet_text, stem=False)
-
-        #tag tokens
-        tagged_tokens = nltk.pos_tag(filtered_tokens)
-        noun_identification = nltk.ne_chunk(tagged_tokens)
-
-        print noun_identification
-
     def clean_up_tweet(self, tweet_text, stem=True):
 
         breaker = TweetTokenizer(strip_handles=True)
@@ -176,12 +166,3 @@ class TweetClassifier:
 if(__name__ == '__main__'):
 
     classifier = TweetClassifier(test=False, corpus='trump')
-
-    with open(os.path.join(os.getcwd(),'sentiment','trump_mini_corpus_no_labels.txt'),'rU') as f:
-
-        for line in f:
-
-            tokens = line.strip().split('\t')
-            text = tokens[1]
-            print text, 'prediction: %s' % classifier.pos_tagger(text)
-
