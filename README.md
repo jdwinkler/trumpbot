@@ -17,7 +17,7 @@ You can clone the repository immediately assuming you have the following package
 * psycopg2
 * Postgres
 
-You will need to include an api.key file that contains your [Twitter](apps.twitter.com) tokens, plus a db.key file that contains your database access credentials as well.
+You will need to include an api.key file that contains your [Twitter](https://apps.twitter.com) tokens, plus a db.key file that contains your database access credentials as well.
 
 ### Who do I talk to? ###
 
