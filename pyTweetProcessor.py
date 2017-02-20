@@ -15,7 +15,7 @@ class TweetProcessor:
         self.classifier = TweetClassifier()
         self.debug_status = debug
 
-        self.time_window = 600 #seconds
+        self.time_window = 120 #seconds
 
         self.situation_normal = 2
         self.situation_raised = 5
