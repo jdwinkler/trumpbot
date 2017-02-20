@@ -4,6 +4,7 @@ from pyTextAnalyzer import TweetClassifier
 import twitter
 import os
 import time
+import itertools
 
 class TweetProcessor:
 
@@ -22,6 +23,8 @@ class TweetProcessor:
         self.situation_alert  = 7
         self.situation_redalert = 9
         self.situation_pinnacle_nucflash = 15
+
+        self.token_cycle = itertools.cycle(['X','A'])
 
     def generate_api_object(self):
 
@@ -115,6 +118,8 @@ class TweetProcessor:
             text = 'Trump status: crisis imminent or occurring, detected stream of %i furious tweets' % nc
         elif(nc > self.situation_pinnacle_nucflash):
             text = 'Trump status: PINNACLE NUCFLASH; run for the hills, detected stream of %i apoplectic tweets' % nc
+
+        text = self.token_cycle.next() + '-' + text
 
         if(self.debug_status):
             print text
