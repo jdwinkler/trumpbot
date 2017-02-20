@@ -135,7 +135,7 @@ class TweetProcessor:
 
         try:
 
-            with open('TrumpDB.file','w') as f:
+            with open('TrumpDB.file','w+') as f:
                 f.write('\t'.join([timestamp, text, sentiment]) + '\n')
 
             success = True

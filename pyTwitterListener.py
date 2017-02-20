@@ -14,7 +14,7 @@ class TweetListener (multiprocessing.Process):
 
         status_generator = self.api.GetStreamFilter(follow=[self.target])
         for s in status_generator:
-            if( int(s['user']['id']) == int(self.target) ):
+            if( 'user' in s and int(s['user']['id']) == int(self.target) ):
                 self.queue.put(s)
 
     def realDonaldJTrumpDetails(self):
