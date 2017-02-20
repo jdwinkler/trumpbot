@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1178927d-997e-41e0-a82f-a96eefd0d84d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pyTweetProcessor.py" afterPath="$PROJECT_DIR$/pyTweetProcessor.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pyTextAnalyzer.py" afterPath="$PROJECT_DIR$/pyTextAnalyzer.py" />
     </list>
     <ignored path="TrumpBot.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -33,11 +33,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pyTweetProcessor.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="pyTweetProcessor.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pyTweetProcessor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7572383">
-              <caret line="38" column="68" selection-start-line="38" selection-start-column="68" selection-end-line="38" selection-end-column="68" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="151" column="43" selection-start-line="151" selection-start-column="43" selection-end-line="151" selection-end-column="43" />
               <folding>
                 <element signature="e#0#33#0" expanded="true" />
               </folding>
@@ -45,11 +45,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pyTextAnalyzer.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="pyTextAnalyzer.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pyTextAnalyzer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="167" column="60" selection-start-line="167" selection-start-column="60" selection-end-line="167" selection-end-column="60" />
+            <state vertical-scroll-proportion="-4.4142537">
+              <caret line="81" column="54" selection-start-line="81" selection-start-column="54" selection-end-line="81" selection-end-column="54" />
               <folding>
                 <element signature="e#71#117#0" expanded="true" />
               </folding>
@@ -111,9 +111,9 @@
         <option value="$PROJECT_DIR$/py_twitter_testbed.py" />
         <option value="$PROJECT_DIR$/NeuralNetwork.py" />
         <option value="$PROJECT_DIR$/test_nltk.py" />
-        <option value="$PROJECT_DIR$/pyTextAnalyzer.py" />
         <option value="$PROJECT_DIR$/setup_db.py" />
         <option value="$PROJECT_DIR$/pyTwitterListener.py" />
+        <option value="$PROJECT_DIR$/pyTextAnalyzer.py" />
         <option value="$PROJECT_DIR$/pyTweetProcessor.py" />
       </list>
     </option>
@@ -373,8 +373,8 @@
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.pyTweetProcessor" />
-        <item index="1" class="java.lang.String" itemvalue="Python.setup_db" />
-        <item index="2" class="java.lang.String" itemvalue="Python.pyTextAnalyzer" />
+        <item index="1" class="java.lang.String" itemvalue="Python.pyTextAnalyzer" />
+        <item index="2" class="java.lang.String" itemvalue="Python.setup_db" />
         <item index="3" class="java.lang.String" itemvalue="Python.test_nltk" />
         <item index="4" class="java.lang.String" itemvalue="Python.py_twitter_testbed" />
       </list>
@@ -535,22 +535,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pyTextAnalyzer.py">
+    <entry file="file://$PROJECT_DIR$/pyTweetProcessor.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="167" column="60" selection-start-line="167" selection-start-column="60" selection-end-line="167" selection-end-column="60" />
+          <caret line="151" column="43" selection-start-line="151" selection-start-column="43" selection-end-line="151" selection-end-column="43" />
           <folding>
-            <element signature="e#71#117#0" expanded="true" />
+            <element signature="e#0#33#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pyTweetProcessor.py">
+    <entry file="file://$PROJECT_DIR$/pyTextAnalyzer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7572383">
-          <caret line="38" column="68" selection-start-line="38" selection-start-column="68" selection-end-line="38" selection-end-column="68" />
+        <state vertical-scroll-proportion="-4.4142537">
+          <caret line="81" column="54" selection-start-line="81" selection-start-column="54" selection-end-line="81" selection-end-column="54" />
           <folding>
-            <element signature="e#0#33#0" expanded="true" />
+            <element signature="e#71#117#0" expanded="true" />
           </folding>
         </state>
       </provider>
