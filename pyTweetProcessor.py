@@ -33,10 +33,10 @@ class TweetProcessor:
 
             import os
 
-            consumer_key = os.environ['consumer_key']
-            consumer_secret = os.environ['consumer_secret']
-            access_key = os.environ['access_token_key']
-            access_secret = os.environ['access_token_secret']
+            consumer_key = os.environ['consumer_key'.upper()]
+            consumer_secret = os.environ['consumer_secret'.upper()]
+            access_key = os.environ['access_token_key'.upper()]
+            access_secret = os.environ['access_token_secret'.upper()]
 
         api = twitter.Api(consumer_key=consumer_key,
                           consumer_secret=consumer_secret,
