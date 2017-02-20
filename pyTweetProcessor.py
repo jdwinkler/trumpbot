@@ -24,8 +24,6 @@ class TweetProcessor:
         self.situation_redalert = 9
         self.situation_pinnacle_nucflash = 15
 
-        self.token_cycle = itertools.cycle(['X','A'])
-
     def generate_api_object(self):
 
         try:
@@ -75,20 +73,27 @@ class TweetProcessor:
         time_recorded = time.time()
         time_to_reset = self.time_window
 
+        tw_counter = 0
+
         while(True):
+
+            if(tw_counter >= 144):
+                tw_counter = 0
 
             try:
                 message = self.tweet_queue.get(block=True, timeout=time_to_reset)
             except:
-                self.react(contiguous_negative_counter)
+                self.react(contiguous_negative_counter, tw_counter)
                 contiguous_negative_counter = 0
                 time_recorded = time.time()
+                tw_counter+=1
                 continue
 
             if(time.time() - time_recorded > time_to_reset):
-                self.react(contiguous_negative_counter)
+                self.react(contiguous_negative_counter, tw_counter)
                 contiguous_negative_counter = 0
                 time_recorded = time.time()
+                tw_counter += 1
 
             (timestamp, text) = self.deconstruct_twitter_json(message)
 
@@ -102,7 +107,7 @@ class TweetProcessor:
             print 'Negativity state: %i' % contiguous_negative_counter
             print 'Last predicted states: %s' % predicted_sentiment
 
-    def react(self, nc):
+    def react(self, nc, marker):
 
         text = None
 
@@ -119,7 +124,7 @@ class TweetProcessor:
         elif(nc > self.situation_pinnacle_nucflash):
             text = 'Trump status: PINNACLE NUCFLASH; run for the hills, detected stream of %i apoplectic tweets' % nc
 
-        text = self.token_cycle.next() + '-' + text
+        text = str(marker) + '. ' + text
 
         if(self.debug_status):
             print text
