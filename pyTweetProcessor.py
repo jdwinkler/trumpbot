@@ -25,7 +25,18 @@ class TweetProcessor:
 
     def generate_api_object(self):
 
-        (consumer_key, consumer_secret, access_key, access_secret) = self.get_credentials()
+        try:
+
+            (consumer_key, consumer_secret, access_key, access_secret) = self.get_credentials()
+
+        except:
+
+            import os
+
+            consumer_key = os.environ['consumer_key']
+            consumer_secret = os.environ['consumer_secret']
+            access_key = os.environ['access_token_key']
+            access_secret = os.environ['access_token_secret']
 
         api = twitter.Api(consumer_key=consumer_key,
                           consumer_secret=consumer_secret,
