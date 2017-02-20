@@ -18,7 +18,7 @@ class TweetProcessor:
 
         self.time_window = 1800 #seconds
 
-        self.situation_normal = 1
+        self.situation_normal = 0
         self.situation_raised = 2
         self.situation_alert  = 3
         self.situation_redalert = 4
@@ -112,7 +112,7 @@ class TweetProcessor:
         text = None
 
         if(nc <= self.situation_normal):
-            text = 'Trump status: nominal, detected few or no upset tweets in past window'
+            text = 'Trump status: nominal, detected no upset tweets in past window'
         elif(nc > self.situation_normal and nc <= self.situation_raised ):
             text = 'Trump status: irritated, detected stream of %i annoyed tweets' % nc
         elif(nc > self.situation_raised and nc <= self.situation_alert):
