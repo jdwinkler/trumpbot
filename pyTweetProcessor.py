@@ -18,11 +18,11 @@ class TweetProcessor:
 
         self.time_window = 1800 #seconds
 
-        self.situation_normal = 2
-        self.situation_raised = 5
-        self.situation_alert  = 7
-        self.situation_redalert = 9
-        self.situation_pinnacle_nucflash = 15
+        self.situation_normal = 1
+        self.situation_raised = 2
+        self.situation_alert  = 3
+        self.situation_redalert = 4
+        self.situation_pinnacle_nucflash = 5
 
     def generate_api_object(self):
 
