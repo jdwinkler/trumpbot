@@ -24,6 +24,10 @@ class TweetProcessor:
         self.situation_redalert = 4
         self.situation_pinnacle_nucflash = 5
 
+        self.symbols = itertools.cycle(['A','B','C','D','E','F','G','H','I',
+                                   'J','K',"L",'M','N','O','P','Q','R',
+                                   'S','T','U','V','W','X','Y','Z','*'])
+
     def generate_api_object(self):
 
         try:
@@ -85,16 +89,16 @@ class TweetProcessor:
             except:
 
                 if(contiguous_negative_counter > 0):
-                    self.react(contiguous_negative_counter, tw_counter)
+                    self.react(contiguous_negative_counter, self.symbols.next())
                 contiguous_negative_counter = 0
                 time_recorded = time.time()
-                tw_counter+=1
+                tw_counter += 1
                 continue
 
             if(time.time() - time_recorded > time_to_reset):
 
                 if(contiguous_negative_counter > 0):
-                    self.react(contiguous_negative_counter, tw_counter)
+                    self.react(contiguous_negative_counter, self.symbols.next())
                 contiguous_negative_counter = 0
                 time_recorded = time.time()
                 tw_counter += 1
