@@ -137,8 +137,12 @@ class TweetProcessor:
         if(self.debug_status):
             print text
         else:
-            self.api.PostUpdate(text)
 
+            try:
+                self.api.PostUpdate(text)
+            except Exception, e:
+                print 'Failed to post status because: %s' % e.message
+                
     def insert_tweet_into_db(self, timestamp, text, sentiment):
 
         try:
