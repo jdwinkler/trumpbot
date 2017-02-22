@@ -16,7 +16,7 @@ class TweetProcessor:
         self.classifier = TweetClassifier()
         self.debug_status = debug
 
-        self.time_window = 1800 #seconds
+        self.time_window = 3600 #seconds
 
         self.situation_normal = 0
         self.situation_raised = 2
@@ -83,14 +83,18 @@ class TweetProcessor:
             try:
                 message = self.tweet_queue.get(block=True, timeout=time_to_reset)
             except:
-                self.react(contiguous_negative_counter, tw_counter)
+
+                if(contiguous_negative_counter > 0):
+                    self.react(contiguous_negative_counter, tw_counter)
                 contiguous_negative_counter = 0
                 time_recorded = time.time()
                 tw_counter+=1
                 continue
 
             if(time.time() - time_recorded > time_to_reset):
-                self.react(contiguous_negative_counter, tw_counter)
+
+                if(contiguous_negative_counter > 0):
+                    self.react(contiguous_negative_counter, tw_counter)
                 contiguous_negative_counter = 0
                 time_recorded = time.time()
                 tw_counter += 1
@@ -159,5 +163,5 @@ class TweetProcessor:
 
 if __name__ == '__main__':
 
-    tw_process = TweetProcessor(debug=False)
+    tw_process = TweetProcessor(debug=True)
     tw_process.start()
